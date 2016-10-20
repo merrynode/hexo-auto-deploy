@@ -1,6 +1,8 @@
 
 const http = require('http');
 const util = require('util');
+// const getRawBody = require('raw-body');
+
 let server = http.createServer(function (request, response) {
     console.log(request.method);
     console.log(request.url);
@@ -10,11 +12,16 @@ let server = http.createServer(function (request, response) {
             data += chunk;
         })
         request.on('end', function () {
+            let transcode = '';
+            let dataJson = {};
             console.log(util.inspect(data));
-            let transcode = decodeURIComponent(util.inspect(data));
-            let dataJson = JSON.parse(transcode.replace('‌payload=', ''));
-
-            request
+            transcode = decodeURIComponent(util.inspect(data));
+            try {
+                dataJson = JSON.parse(transcode.replace(/payload=|\'/g, ''));
+            } catch (err) {
+                console.log(err);
+            }
+            console.log(dataJson);
             response.statusCode = 200;
             response.end(util.inspect(data));
         })
