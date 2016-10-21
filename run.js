@@ -39,7 +39,7 @@ let server = http.createServer((request, response) => {
                     console.log(dataJson);
                     console.log('restart blog!');
                     response.end(dataJson);
-                }, 5000);
+                }, 3000);
             })
         } catch (err) {
             console.error(err);
