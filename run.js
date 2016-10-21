@@ -32,7 +32,7 @@ let server = http.createServer((request, response) => {
             let dataJson = JSON.parse(dataString.replace(/payload=|\'/g, ''));
             console.log(dataJson);
             console.log('restart blog!');
-            response.end(dataJson);
+            response.end('ok!');
 
             setTimeout(() => {
                 hexo = exec('git pull \n hexo clean \n hexo g \n hexo server', {cwd: BLOG_PATH}, (err, stdout, stderr) => {
