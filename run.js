@@ -28,6 +28,12 @@ let server = http.createServer((request, response) => {
 
         try {
             hexo && hexo.kill('SIGINT');
+
+            let dataJson = JSON.parse(dataString.replace(/payload=|\'/g, ''));
+            console.log(dataJson);
+            console.log('restart blog!');
+            response.end(dataJson);
+
             setTimeout(() => {
                 hexo = exec('git pull \n hexo clean \n hexo g \n hexo server', {cwd: BLOG_PATH}, (err, stdout, stderr) => {
                     if (err) {
@@ -35,10 +41,6 @@ let server = http.createServer((request, response) => {
                     }
                     console.info(stdout);
                     console.error(stderr);
-                    let dataJson = JSON.parse(dataString.replace(/payload=|\'/g, ''));
-                    console.log(dataJson);
-                    console.log('restart blog!');
-                    response.end(dataJson);
                 }, 3000);
             })
         } catch (err) {
