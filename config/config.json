@@ -1,6 +1,6 @@
 {
   "PORT": 2333,
-  "URL_PATH": "/updateblog",
-  "SECRET": "SECRET",
-  "COMMEND_PATH": "/home/blog_path/restart.sh"
+  "URL_PATH": "/upblog",
+  "SECRET": "d60705985e29173345ed45ba77f3bb31",
+  "COMMEND_PATH": "/home/blog/restart.sh"
 }
