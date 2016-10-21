@@ -4,7 +4,7 @@ const {exec} = require('child_process');
 
 const {PORT, URL_PATH, SECRET, BLOG_PATH} = require('./config/config.json');
 
-let hexo = exec('hexo server -p 80',{cwd: BLOG_PATH});
+let hexo = exec('hexo server -p 80',{cwd: BLOG_PATH}, (err, stdout, stderr) => {console.log(err)});
 
 let server = http.createServer((request, response) => {
 
