@@ -35,8 +35,9 @@ let server = http.createServer((request, response) => {
                     }
                     console.info(stdout);
                     console.error(stderr);
-                    console.log('restart blog!');
                     let dataJson = JSON.parse(dataString.replace(/payload=|\'/g, ''));
+                    console.log(dataJson);
+                    console.log('restart blog!');
                     response.end(dataJson);
                 }, 1000);
             })
