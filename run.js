@@ -35,7 +35,7 @@ let server = http.createServer((request, response) => {
             response.end('ok!');
 
             setTimeout(() => {
-                hexo = exec('git pull \n hexo clean \n hexo g \n hexo server', {cwd: BLOG_PATH}, (err, stdout, stderr) => {
+                hexo = exec('git pull \n hexo clean \n hexo g \n hexo server -p 80', {cwd: BLOG_PATH}, (err, stdout, stderr) => {
                     if (err) {
                         throw Error(err);
                     }
