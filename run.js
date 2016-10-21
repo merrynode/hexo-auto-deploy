@@ -29,7 +29,7 @@ let server = http.createServer((request, response) => {
         try {
             hexo && hexo.kill('SIGINT');
             setTimeout(() => {
-                hexo = exec('hexo clean \n hexo g \n hexo server', {cwd: BLOG_PATH}, (err, stdout, stderr) => {
+                hexo = exec('git pull \n hexo clean \n hexo g \n hexo server', {cwd: BLOG_PATH}, (err, stdout, stderr) => {
                     if (err) {
                         throw Error(err);
                     }
@@ -39,7 +39,7 @@ let server = http.createServer((request, response) => {
                     console.log(dataJson);
                     console.log('restart blog!');
                     response.end(dataJson);
-                }, 1000);
+                }, 5000);
             })
         } catch (err) {
             console.error(err);
