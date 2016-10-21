@@ -6,14 +6,14 @@ const {spawn} = require('child_process');
 const {BLOG_PATH} = require('./config/config.json');
 
 
-let hexo = spawn('hexo server -p 80',{cwd: BLOG_PATH});
+let hexo = spawn('hexo',['server', '-p', '80'], {cwd: BLOG_PATH});
 
 init(hexo);
 
 function init (exec) {
     exec.on('data', console.info);
     exec.on('exit', function (code) {
-        console.log(`exit code：${code}`);
+        console.info(`exit code：${code}`);
     })
     return exec;
 }
