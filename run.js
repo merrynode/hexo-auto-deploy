@@ -19,10 +19,8 @@ let server = http.createServer( (request, response) => {
     request.on('end', () => {
         //验证secret
         let signature = 'sha1=' + createHmac('sha1', SECRET).update(new Buffer(data)).digest('hex');
-        console.log(request.headers['x-hub-signature']);
-        console.log(signature);
         let checkSignature = signature === request.headers['x-hub-signature'];
-        if (checkSignature) {
+        if (!checkSignature) {
             throw Error('check signature failed!');
         }
 
