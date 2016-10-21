@@ -1,6 +1,6 @@
 {
   "PORT": 2333,
   "URL_PATH": "/upblog",
-  "SECRET": "d60705985e29173345ed45ba77f3bb31",
-  "BLOG_PATH": "C:/Users/白植泵/Desktop/blog/restart.bat"
+  "SECRET": "you secret",
+  "BLOG_PATH": "/home/blog/"
 }
