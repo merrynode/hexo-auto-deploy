@@ -1,6 +1,6 @@
 const http = require('http');
 const {createHmac} = require('crypto');
-const {execFile} = require('child_process');
+const {exec} = require('child_process');
 
 const {PORT, URL_PATH, SECRET, BLOG_PATH} = require('./config/config.json');
 
