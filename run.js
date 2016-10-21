@@ -1,10 +1,8 @@
 const http = require('http');
 const {createHmac} = require('crypto');
-const {exec} = require('child_process');
 
-const {PORT, URL_PATH, SECRET, BLOG_PATH} = require('./config/config.json');
-
-let hexo = exec('hexo server -p 80',{cwd: BLOG_PATH}, (err, stdout, stderr) => {console.log(err)});
+const {PORT, URL_PATH, SECRET} = require('./config/config.json');
+const hexo = require('./hexo');
 
 let server = http.createServer((request, response) => {
 
@@ -27,22 +25,12 @@ let server = http.createServer((request, response) => {
         let dataString = decodeURIComponent(data);
 
         try {
-            hexo && hexo.kill('SIGINT');
-
+            hexo.upStart();
             let dataJson = JSON.parse(dataString.replace(/payload=|\'/g, ''));
             console.log(dataJson);
             console.log('restart blog!');
             response.end('ok!');
-
-            setTimeout(() => {
-                hexo = exec('git pull \n hexo clean \n hexo g \n hexo server -p 80', {cwd: BLOG_PATH}, (err, stdout, stderr) => {
-                    if (err) {
-                        throw Error(err);
-                    }
-                    console.info(stdout);
-                    console.error(stderr);
-                }, 3000);
-            })
+            
         } catch (err) {
             console.error(err);
             response.statusCode = 400;
