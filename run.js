@@ -24,12 +24,12 @@ let server = http.createServer( (request, response) => {
             //验证secret
             let signature = 'sha1=' + createHmac('sha1', SECRET).update(new Buffer(data)).digest('hex');
             let checkSignature = signature === request.headers['x-hub-signature'];
-            if (!checkSignature) {
+            if (checkSignature) {
                 throw Error('check signature failed!');
             }
 
             hexo && hexo.kill('SIGINT');
-            hexo = execFile(COMMEND_PATH, [], {}, (err, stdout, stderr) => {
+            hexo = execFile(COMMEND_PATH, (err, stdout, stderr) => {
                 if (err) {
                     throw Error(err);
                 }

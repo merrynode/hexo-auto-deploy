@@ -2,5 +2,5 @@
   "PORT": 2333,
   "URL_PATH": "/upblog",
   "SECRET": "d60705985e29173345ed45ba77f3bb31",
-  "COMMEND_PATH": "/home/blog/restart.sh"
+  "COMMEND_PATH": "C:/Users/白植泵/Desktop/blog/restart.bat"
 }
