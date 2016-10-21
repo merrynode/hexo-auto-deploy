@@ -13,7 +13,7 @@ let server = http.createServer( (request, response) => {
         response.end('you get lost?');
     }
 
-    let data;
+    let data = '';
     request.on('data', (chunk) => data += chunk);
 
     request.on('end', () => {
@@ -22,7 +22,7 @@ let server = http.createServer( (request, response) => {
 
         try {
             //验证secret
-            let signature = 'sha1=' + createHmac('sha1', SECRET).update(data).digest('hex');
+            let signature = 'sha1=' + createHmac('sha1', SECRET).update(new Buffer(data)).digest('hex');
             let checkSignature = signature === request.headers['x-hub-signature'];
             if (!checkSignature) {
                 throw Error('check signature failed!');
