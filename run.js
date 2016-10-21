@@ -2,11 +2,11 @@ const http = require('http');
 const {createHmac} = require('crypto');
 const {execFile} = require('child_process');
 
-const {PORT, URL_PATH, SECRET, COMMEND_PATH} = require('./config/config.json');
+const {PORT, URL_PATH, SECRET, BLOG_PATH} = require('./config/config.json');
 
 let hexo = '';
 
-let server = http.createServer( (request, response) => {
+let server = http.createServer((request, response) => {
 
     let {method, url} = request;
     if (!(method === 'POST' && url === URL_PATH)) {
@@ -28,15 +28,17 @@ let server = http.createServer( (request, response) => {
 
         try {
             hexo && hexo.kill('SIGINT');
-            hexo = execFile(COMMEND_PATH, (err, stdout, stderr) => {
-                if (err) {
-                    throw Error(err);
-                }
-                console.info(stdout);
-                let dataJson = JSON.parse(dataString.replace(/payload=|\'/g, ''));
-                response.end(dataJson);
+            setTimeout(() => {
+                hexo = exec('hexo clean \n hexo g \n hexo server', {cwd: BLOG_PATH}, (err, stdout, stderr) => {
+                    if (err) {
+                        throw Error(err);
+                    }
+                    console.info(stdout);
+                    console.error(stderr);
+                    let dataJson = JSON.parse(dataString.replace(/payload=|\'/g, ''));
+                    response.end(dataJson);
+                }, 1000);
             })
-
         } catch (err) {
             console.error(err);
             response.statusCode = 400;
