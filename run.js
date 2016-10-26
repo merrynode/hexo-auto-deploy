@@ -12,6 +12,7 @@ let server = http.createServer((request, response) => {
     }
 
     let data = '';
+
     request.on('data', (chunk) => data += chunk);
 
     request.on('end', () => {
@@ -25,11 +26,20 @@ let server = http.createServer((request, response) => {
         let dataString = decodeURIComponent(data);
 
         try {
-            hexo.upStart();
-            let dataJson = JSON.parse(dataString.replace(/payload=|\'/g, ''));
-            console.log(dataJson);
-            console.log('restart blog!');
-            response.end('ok!');
+            hexo.restart((err, result) => {
+                if (err) {
+                    response.statusCode = 500;
+                    response.end(error.message);
+                    console.error(err);
+                }
+
+                let dataJson = JSON.parse(dataString.replace(/payload=|\'/g, ''));
+                console.log(dataJson);
+                console.log('restart blog!');
+                response.end('ok!');
+            });
+
+
             
         } catch (err) {
             console.error(err);
