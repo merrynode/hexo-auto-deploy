@@ -33,7 +33,7 @@ function restart (callback) {
     })
 }
 
-exports = {
+module.exports = {
     init: init,
     restart: restart
 };
