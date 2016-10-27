@@ -18,14 +18,15 @@ function init (exec) {
 
 function restart (callback) {
     hexo && hexo.kill('SIGINT');
+    console.info('git pull \n hexo clean \n hexo g')
     exec('git pull \n hexo clean \n hexo g', {cwd: BLOG_PATH}, (err, stdout, stderr) => {
 
         if (err) {
             callback(err);
         }
 
-        console.info('stdout:', stdout);
-        console.info('stderr:', stderr);
+        console.info(stdout);
+        console.info(stderr);
 
         hexo = spawn('hexo', ['server', '-p', '80'], {cwd: BLOG_PATH});
 
