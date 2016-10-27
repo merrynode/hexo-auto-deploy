@@ -29,7 +29,7 @@ let server = http.createServer((request, response) => {
             hexo.restart((err, result) => {
                 if (err) {
                     response.statusCode = 500;
-                    response.end(error.message);
+                    response.end(err.message);
                     console.error(err);
                 }
 
