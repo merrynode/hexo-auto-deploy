@@ -1,11 +1,17 @@
 const http = require('http');
 const {createHmac} = require('crypto');
 
-const {PORT, URL_PATH, SECRET} = require('./config/config.json');
+const config = require('./config/config.json');
 const hexo = require('./hexo');
+
+//默认参数
+let PORT = config.PORT || 3000;
+let URL_PATH = config.URL_PATH || '/';
+let SECRET = config.SECRET || '';
 
 let server = http.createServer((request, response) => {
 
+    //检测method和url路径
     let {method, url} = request;
     if (!(method === 'POST' && url === URL_PATH)) {
         response.end('you get lost?');
@@ -16,6 +22,7 @@ let server = http.createServer((request, response) => {
     request.on('data', (chunk) => data += chunk);
 
     request.on('end', () => {
+
         //验证secret
         let signature = 'sha1=' + createHmac('sha1', SECRET).update(new Buffer(data)).digest('hex');
         let checkSignature = signature === request.headers['x-hub-signature'];

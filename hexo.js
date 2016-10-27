@@ -3,10 +3,10 @@
  */
 
 const {spawn, exec} = require('child_process');
-const {BLOG_PATH} = require('./config/config.json');
+const {FILE_PATH} = require('./config/config.json');
 
 
-let hexo = spawn('hexo',['server', '-p', '80'], {cwd: BLOG_PATH});
+let hexo = spawn('hexo',['server', '-p', '80'], {cwd: FILE_PATH});
 
 init(hexo);
 
@@ -19,7 +19,7 @@ function init (exec) {
 function restart (callback) {
     hexo && hexo.kill('SIGINT');
     console.info('git pull \n hexo clean \n hexo g')
-    exec('git pull \n hexo clean \n hexo g', {cwd: BLOG_PATH}, (err, stdout, stderr) => {
+    exec('git pull \n hexo clean \n hexo g', {cwd: FILE_PATH}, (err, stdout, stderr) => {
 
         if (err) {
             callback(err);
@@ -28,7 +28,7 @@ function restart (callback) {
         console.info(stdout);
         console.info(stderr);
 
-        hexo = spawn('hexo', ['server', '-p', '80'], {cwd: BLOG_PATH});
+        hexo = spawn('hexo', ['server', '-p', '80'], {cwd: FILE_PATH});
 
         callback(null, init(hexo));
     })

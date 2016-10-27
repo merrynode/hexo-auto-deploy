@@ -1,0 +1,24 @@
+{
+  "name": "robbit-hexo",
+  "version": "1.0.0",
+  "description": "一个简单的hexo自动更新模块",
+  "main": "run.js",
+  "scripts": {
+    "start": "node ./run.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/merrynode/hexo-auto-deploy.git"
+  },
+  "keywords": [
+    "hexo",
+    "git",
+    "deploy"
+  ],
+  "author": "merrynode",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/merrynode/hexo-auto-deploy/issues"
+  },
+  "homepage": "https://github.com/merrynode/hexo-auto-deploy#readme"
+}
