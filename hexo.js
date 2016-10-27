@@ -11,7 +11,8 @@ let hexo = spawn('hexo',['server', '-p', '80'], {cwd: FILE_PATH});
 init(hexo);
 
 function init (exec) {
-    exec.on('data', (data) => console.log(data));
+    exec.stdout.on('data', (data) => console.log('stdout:', data));
+    exec.stderr.on('data', (data) => console.log('stderr:', data));
     exec.on('exit', () => {console.info(`hexo stop!`)});
     return exec;
 }
