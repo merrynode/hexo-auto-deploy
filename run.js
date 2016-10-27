@@ -23,35 +23,44 @@ let server = http.createServer((request, response) => {
 
     request.on('end', () => {
 
-        //验证secret
-        let signature = 'sha1=' + createHmac('sha1', SECRET).update(new Buffer(data)).digest('hex');
-        let checkSignature = signature === request.headers['x-hub-signature'];
-        if (!checkSignature) {
-            throw Error('check signature failed!');
-        }
+            //验证secret
+            let signature = 'sha1=' + createHmac('sha1', SECRET).update(new Buffer(data)).digest('hex');
+            let checkSignature = signature === request.headers['x-hub-signature'];
+            if (!checkSignature) {
+                console.warn('check signature failed!');
+                fail(400, 'update blog failed!');
+            }
 
-        let dataString = decodeURIComponent(data);
-
-        try {
+            let dataString = decodeURIComponent(data);
             hexo.restart((err, result) => {
                 if (err) {
                     response.statusCode = 500;
                     response.end(err.message);
                     console.error(err);
                 }
+                try {
 
-                let {commits} = JSON.parse(dataString.replace(/payload=|\'/g, ''));
-                console.log(JSON.stringify(commits));
-                console.log('blog start!');
-                response.end('ok!');
+                    let {commits} = JSON.parse(dataString.replace(/payload=|\'/g, ''));
+                    console.log(JSON.stringify(commits));
+                    console.log('blog start!');
+                    success('ok!');
+
+                } catch (err) {
+                    console.error(err);
+                    fail(500, 'update blog failed!');
+                }
             });
-            
-        } catch (err) {
-            console.error(err);
-            response.statusCode = 400;
-            response.end('update blog failed!');
-        }
     })
+
+    function success(msg) {
+        response.end(msg);
+    }
+
+    function fail (code, msg) {
+        response.statusCode = code;
+        response.end(msg);
+    }
+
 })
 
 server.listen(PORT, () => console.log('listen to', PORT));
