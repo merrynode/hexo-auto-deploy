@@ -1,8 +1,7 @@
 # hexo博客自动同步git
 
 这是项目 [hexo-auto-deploy](https://github.com/merrynode/hexo-auto-deploy) ，
-欢迎Star。
-如有问题可以联系我的邮箱:731615400@qq.com
+欢迎,如有问题可以联系我的邮箱:731615400@qq.com
 ******
 ## 说明
 
