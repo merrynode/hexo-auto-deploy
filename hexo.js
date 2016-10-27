@@ -12,7 +12,7 @@ init(hexo);
 
 function init (exec) {
     exec.on('data', (data) => console.log(data));
-    exec.on('exit', () => {console.info(`hexo stop`)});
+    exec.on('exit', () => {console.info(`hexo stop!`)});
     return exec;
 }
 

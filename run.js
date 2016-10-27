@@ -33,13 +33,11 @@ let server = http.createServer((request, response) => {
                     console.error(err);
                 }
 
-                let dataJson = JSON.parse(dataString.replace(/payload=|\'/g, ''));
-                console.log(dataJson);
-                console.log('restart blog!');
+                let {commits} = JSON.parse(dataString.replace(/payload=|\'/g, ''));
+                console.log(JSON.stringify(commits));
+                console.log('blog start!');
                 response.end('ok!');
             });
-
-
             
         } catch (err) {
             console.error(err);
