@@ -27,7 +27,8 @@ let server = http.createServer((request, response) => {
         let signature = 'sha1=' + createHmac('sha1', SECRET).update(new Buffer(data)).digest('hex');
         let checkSignature = signature === request.headers['x-hub-signature'];
         if (!checkSignature) {
-            throw Error('check signature failed!');
+            response.statusCode = 400;
+            response.end('check signature failed!');
         }
 
         let dataString = decodeURIComponent(data);

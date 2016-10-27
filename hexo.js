@@ -18,7 +18,7 @@ function init (exec) {
 
 function restart (callback) {
     hexo && hexo.kill('SIGINT');
-    console.info('git pull \n hexo clean \n hexo g')
+    console.info('git pull && hexo clean && hexo g');
     exec('git pull \n hexo clean \n hexo g', {cwd: FILE_PATH}, (err, stdout, stderr) => {
 
         if (err) {
