@@ -1,6 +1,6 @@
 {
   "PORT": 2333,
   "URL_PATH": "/update",
-  "SECRET": "d60705985e29173345ed45ba77f3bb31",
-  "BLOG_PATH": "/home/blog/"
+  "SECRET": "secret",
+  "FILE_PATH": "path"
 }

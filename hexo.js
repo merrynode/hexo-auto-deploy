@@ -5,8 +5,7 @@
 const {spawn, exec} = require('child_process');
 const {FILE_PATH} = require('./config/config.json');
 
-
-let hexo = spawn('hexo',['server', '-p', '80'], {cwd: FILE_PATH});
+let hexo = spawn(process.platform === "win32" ? "hexo.cmd" : "hexo", ['server', '-p', '80'], {cwd: FILE_PATH});
 
 init(hexo);
 
@@ -29,7 +28,7 @@ function restart (callback) {
         console.info(stdout);
         console.info(stderr);
 
-        hexo = spawn('hexo', ['server', '-p', '80'], {cwd: FILE_PATH});
+        hexo = spawn(process.platform === "win32" ? "hexo.cmd" : "hexo", ['server', '-p', '80'], {cwd: FILE_PATH});
 
         callback(null, init(hexo));
     })
